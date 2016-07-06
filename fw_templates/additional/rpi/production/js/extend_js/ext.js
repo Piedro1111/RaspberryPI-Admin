@@ -1,6 +1,14 @@
 var ctrok=0,
 	ctrer=0;
 $(document).ready(function(){
+	$('#gpio-all-reset').click(function(){
+		$.post(server_name+'/ajax.slot.php',{
+			atype:'raspberrypi::gpio::reset::all',
+			response:200
+		},function(data){
+			checkServerStatus();
+		});
+	});
 	$('#shutdown').click(function(){
 		$.post(server_name+'/ajax.slot.php',{
 			atype:'raspberrypi::shutdown',

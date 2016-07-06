@@ -131,6 +131,22 @@ switch($ajax['atype'])
 		$status['status'] = 'ok';
 		$status['code'] = 200;
 		break;
+	case 'raspberrypi::gpio::reset::all':
+		shell_exec("sudo -u www-data -S cd ../../");
+		shell_exec("sudo -u www-data -S /usr/local/bin/gpio -g mode 4 out");
+		shell_exec("sudo -u www-data -S /usr/local/bin/gpio -g write 4 1");
+		$i=0;
+		sleep(1);
+		while($i<=30)
+		{
+			shell_exec("sudo -u www-data -S /usr/local/bin/gpio -g mode $i out");
+			shell_exec("sudo -u www-data -S /usr/local/bin/gpio -g write $i 0");
+			$i++;
+		}
+		
+		$status['status'] = 'ok';
+		$status['code'] = 200;
+		break;
 	default:
 		$status['status'] = 'not acceptable';
 		$status['code'] = 405;
