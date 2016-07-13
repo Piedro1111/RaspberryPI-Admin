@@ -25,6 +25,26 @@ $(document).ready(function(){
 			checkServerStatus();
 		});
 	});
+	$('select.gpio-in-out').change(function(){
+		$.post(server_name+'/ajax.slot.php',{
+			atype:'raspberrypi::gpio::out::set',
+			gpio:$(this).data('name'),
+			set:$(this).val(),
+			response:200
+		},function(data){
+			checkServerStatus();
+		});
+	});
+	$('select.gpio-val').change(function(){
+		$.post(server_name+'/ajax.slot.php',{
+			atype:'raspberrypi::gpio::val::set',
+			gpio:$(this).data('name'),
+			set:$(this).val(),
+			response:200
+		},function(data){
+			checkServerStatus();
+		});
+	});
 });
 function checkServerStatus()
 {
